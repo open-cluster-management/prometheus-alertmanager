@@ -22,8 +22,8 @@ require (
 	github.com/oklog/run v1.1.0
 	github.com/oklog/ulid v1.3.1
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.9.0
-	github.com/prometheus/common v0.18.0
+	github.com/prometheus/client_golang v1.11.1
+	github.com/prometheus/common v0.26.0
 	github.com/prometheus/exporter-toolkit v0.5.0
 	github.com/rs/cors v1.7.0
 	github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749
@@ -68,19 +68,22 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
-	github.com/prometheus/procfs v0.2.0 // indirect
+	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529 // indirect
 	go.mongodb.org/mongo-driver v1.4.6 // indirect
-	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
+	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
 	golang.org/x/mod v0.3.0 // indirect
 	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/protobuf v1.23.0 // indirect
+	google.golang.org/protobuf v1.26.0-rc.1 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-// fix CVE-2022-24450
-replace github.com/nats-io/nats-server/v2 => github.com/nats-io/nats-server/v2 v2.7.2
+replace (
+	github.com/nats-io/nats-server/v2 => github.com/nats-io/nats-server/v2 v2.8.2
+	github.com/prometheus/common => github.com/prometheus/common v0.18.0
+	golang.org/x/text => golang.org/x/text v0.3.7
+)
 
 go 1.17
