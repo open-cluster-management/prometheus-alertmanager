@@ -1,6 +1,7 @@
 /data/
 /alertmanager
 /amtool
+vendor/
 *.yml
 *.yaml
 /.build
