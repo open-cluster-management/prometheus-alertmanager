@@ -350,7 +350,7 @@ func New(o Options) (*Silences, error) {
 			if !os.IsNotExist(err) {
 				return nil, err
 			}
-			level.Debug(s.logger).Log("msg", "silences snapshot file doesn't exist", "err", err)
+			_ = level.Debug(s.logger).Log("msg", "silences snapshot file doesn't exist", "err", err)
 		} else {
 			o.SnapshotReader = r
 			defer r.Close()
@@ -375,7 +375,7 @@ func (s *Silences) nowUTC() time.Time {
 // If not nil, the last argument is an override for what to do as part of the maintenance - for advanced usage.
 func (s *Silences) Maintenance(interval time.Duration, snapf string, stopc <-chan struct{}, override MaintenanceFunc) {
 	if interval == 0 || stopc == nil {
-		level.Error(s.logger).Log("msg", "interval or stop signal are missing - not running maintenance")
+		_ = level.Error(s.logger).Log("msg", "interval or stop signal are missing - not running maintenance")
 		return
 	}
 	t := s.clock.Ticker(interval)
@@ -396,7 +396,7 @@ func (s *Silences) Maintenance(interval time.Duration, snapf string, stopc <-cha
 			return size, err
 		}
 		if size, err = s.Snapshot(f); err != nil {
-			f.Close()
+			_ = f.Close()
 			return size, err
 		}
 		return size, f.Close()

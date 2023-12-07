@@ -272,7 +272,7 @@ func New(o Options) (*Log, error) {
 			if !os.IsNotExist(err) {
 				return nil, err
 			}
-			level.Debug(l.logger).Log("msg", "notification log snapshot file doesn't exist", "err", err)
+			_ = level.Debug(l.logger).Log("msg", "notification log snapshot file doesn't exist", "err", err)
 		} else {
 			o.SnapshotReader = r
 			defer r.Close()
@@ -298,7 +298,7 @@ func (l *Log) now() time.Time {
 // If not nil, the last argument is an override for what to do as part of the maintenance - for advanced usage.
 func (l *Log) Maintenance(interval time.Duration, snapf string, stopc <-chan struct{}, override MaintenanceFunc) {
 	if interval == 0 || stopc == nil {
-		level.Error(l.logger).Log("msg", "interval or stop signal are missing - not running maintenance")
+		_ = level.Error(l.logger).Log("msg", "interval or stop signal are missing - not running maintenance")
 		return
 	}
 	t := l.clock.Ticker(interval)
@@ -318,7 +318,7 @@ func (l *Log) Maintenance(interval time.Duration, snapf string, stopc <-chan str
 			return size, err
 		}
 		if size, err = l.Snapshot(f); err != nil {
-			f.Close()
+			_ = f.Close()
 			return size, err
 		}
 		return size, f.Close()

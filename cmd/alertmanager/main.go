@@ -504,7 +504,7 @@ func run() int {
 		disp = dispatch.NewDispatcher(alerts, routes, pipeline, marker, timeoutFunc, nil, logger, dispMetrics)
 		routes.Walk(func(r *dispatch.Route) {
 			if r.RouteOpts.RepeatInterval > *retention {
-				level.Warn(configLogger).Log(
+				_ = level.Warn(configLogger).Log(
 					"msg",
 					"repeat_interval is greater than the data retention period. It can lead to notifications being repeated more often than expected.",
 					"repeat_interval",
@@ -517,7 +517,7 @@ func run() int {
 			}
 
 			if r.RouteOpts.RepeatInterval < r.RouteOpts.GroupInterval {
-				level.Warn(configLogger).Log(
+				_ = level.Warn(configLogger).Log(
 					"msg",
 					"repeat_interval is less than group_interval. Notifications will not repeat until the next group_interval.",
 					"repeat_interval",

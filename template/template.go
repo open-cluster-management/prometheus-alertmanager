@@ -80,10 +80,10 @@ func FromGlobs(paths []string, options ...Option) (*Template, error) {
 			return nil, err
 		}
 		if err := t.Parse(f); err != nil {
-			f.Close()
+			_ = f.Close()
 			return nil, err
 		}
-		f.Close()
+		_ = f.Close()
 	}
 
 	for _, tp := range paths {
