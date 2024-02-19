@@ -419,7 +419,7 @@ func run() int {
 		configLogger,
 	)
 	configCoordinator.Subscribe(func(conf *config.Config) error {
-		tmpl, err = template.FromGlobs(conf.Templates)
+		tmpl, err = template.FromGlobs(conf.Templates, template.WithParsedURL())
 		if err != nil {
 			return errors.Wrap(err, "failed to parse templates")
 		}

@@ -45,6 +45,28 @@ type Template struct {
 // Option is generic modifier of the text and html templates used by a Template.
 type Option func(text *tmpltext.Template, html *tmplhtml.Template)
 
+// WithParsedURL adds custom functions to the text and html templates.
+// Parses the scheme and host from the given URL and adds a "urlparse" function
+func WithParsedURL() Option {
+	funcs := tmpltext.FuncMap{"urlparse": func(urlStr string) string {
+		var parsed string
+		u, err := url.Parse(urlStr)
+		if err == nil {
+			if u.Scheme != "" {
+				parsed = u.Scheme + "://"
+			}
+			parsed += u.Host
+			parsed = u.Scheme
+		}
+		return parsed
+	},
+	}
+	return func(text *tmpltext.Template, html *tmplhtml.Template) {
+		text.Funcs(funcs)
+		html.Funcs(funcs)
+	}
+}
+
 // FromGlobs calls ParseGlob on all path globs provided and returns the
 // resulting Template. Options allows customization of the text and html templates in given order.
 // The DefaultFuncs have precedence over any added custom functions.
